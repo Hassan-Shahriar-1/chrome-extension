@@ -7,12 +7,12 @@ document.getElementById('fetchProduct').addEventListener('click', async () => {
     // Display product details
     const productDetails = document.getElementById('productDetails');
     productDetails.innerHTML = `
-      <h2>${product.title}</h2>
+      <h2>${product.name}</h2>
       <p>Price: ${product.price}</p>
       <p>Description: ${product.description}</p>
       <p>Category: ${product.category}</p>
       <p>Location: ${product.location}</p>
-      <img src="${product.images[0]}" alt="Product Image" width="100">
+      <img src="${product.images}" alt="Product Image" width="100">
     `;
 
     // Enable the upload button
