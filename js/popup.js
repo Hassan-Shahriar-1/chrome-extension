@@ -1,29 +1,23 @@
-document.getElementById('fetchProduct').addEventListener('click', async () => {
-  console.log('called');
-  try {
-    const response = await fetch('http://127.0.0.1:8000/api/v1/product-list');
-    console.log('response',response?.data)
-    const product = await response.json();
-    console.log('product',product)
-    // Display product details
-    const productDetails = document.getElementById('productDetails');
-    productDetails.innerHTML = `
-      <h2>${product.name}</h2>
-      <p>Price: ${product.price}</p>
-      <p>Description: ${product.description}</p>
-      <p>Category: ${product.category}</p>
-      <p>Location: ${product.location}</p>
-      <img src="${product.images}" alt="Product Image" width="100">
-    `;
+document.getElementById('fetchProduct').addEventListener('click', () => {
+  chrome.runtime.sendMessage({ action: "fetchProductDetails" }, (response) => {
+    if (response.success) {
+      const product = response.product;
+      // Save the product details to localStorage for use in content.js
+      localStorage.setItem('product', JSON.stringify(product));
 
-    // Enable the upload button
-    document.getElementById('uploadProduct').disabled = false;
-  } catch (error) {
-    console.error('Error fetching product:', error);
-  }
-});
-
-document.getElementById('uploadProduct').addEventListener('click', () => {
-  // Simulate uploading to Facebook Marketplace
-  alert('Product uploaded to Facebook Marketplace!');
+      // Update the UI with product details
+      document.getElementById('productDetails').innerHTML = `
+        <h3>${product.name}</h3>
+        <p>Price: ${product.price} ${product.currency}</p>
+        <p>Description: ${product.description}</p>
+        <p>Category: ${product.category}</p>
+        <p>Location: ${product.location}</p>
+        <img src="${product.image}" alt="Product Image" width="100">
+      `;
+      // Enable the upload button
+      document.getElementById('uploadProduct').disabled = false;
+    } else {
+      alert(response.message);
+    }
+  });
 });

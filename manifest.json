@@ -1,15 +1,26 @@
 {
   "manifest_version": 3,
-  "name": "Marketplace Uploader",
+  "name": "Facebook Marketplace Product Uploader",
+  "description": "Upload products to Facebook Marketplace",
   "version": "1.0",
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "facebook.svg",
-      "48": "instagram.svg",
-      "128": "web.svg"
-    }
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
   },
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["http://127.0.0.1:8000/*"]
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/marketplace/create"],
+      "js": ["content.js"]
+    }
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*"
+  ]
 }
