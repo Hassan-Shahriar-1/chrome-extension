@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Marketplace Uploader",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "facebook.svg",
+      "48": "instagram.svg",
+      "128": "web.svg"
+    }
+  },
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["http://127.0.0.1:8000"]
+}
