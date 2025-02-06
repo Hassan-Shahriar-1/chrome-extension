@@ -2,8 +2,9 @@ document.getElementById('fetchProduct').addEventListener('click', async () => {
   console.log('called');
   try {
     const response = await fetch('http://127.0.0.1:8000/api/v1/product-list');
+    console.log('response',response?.data)
     const product = await response.json();
-
+    console.log('product',product)
     // Display product details
     const productDetails = document.getElementById('productDetails');
     productDetails.innerHTML = `
